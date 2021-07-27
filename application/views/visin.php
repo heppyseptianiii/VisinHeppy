@@ -11,8 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     // Mengambil API visualisasi.
     google.charts.load('current', {'packages':['corechart']});
     google.charts.load('current', {'packages':['table']});
+
     google.charts.load('current', {'packages':['gauge']});
- 
+    google.charts.load('current', {'packages':['corechart']});
+      
     google.charts.setOnLoadCallback(drawTable);
     
     google.charts.load('current', {'packages':['corechart']});
@@ -82,18 +84,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-    function drawTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Nama');
-        data.addColumn('string', 'Nim');
-        data.addColumn('string', 'Jurusan');
-        data.addRows([
-          ['HEPPY SEPTIANI', '1800016155', 'Sistem Informasi'],
+      function drawTable() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Sumatera', 'bandung', 'Yogya', 'Papua ', 'Bali', 'Bogor'],
+          ['2004/05',  165,      938,         522,             998,           450,      614.6],
+          ['2005/06',  135,      1120,        599,             1268,          288,      682],
+          ['2006/07',  157,      1167,        587,             807,           397,      623],
+          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
+          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
         ]);
 
-        var table = new google.visualization.Table(document.getElementById('table_div'));
+        var options = {
+          title : 'Produksi Kopi Bulanan menurut Negara',
+          vAxis: {title: 'Cangkir'},
+          hAxis: {title: 'Bulan'},
+          seriesType: 'Bar',
+          series: {5: {type: 'garis'}}
+        };
 
-        table.draw(data, {showRowNumber: true, fontSize:3000,width: '100%', height: '30%'});
+        var chart = new google.visualization.ComboChart(document.getElementById('33'));
+        chart.draw(data, options);
       }
 
       function drawNos() {
@@ -134,32 +145,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 <nav class="uk-navbar-container uk-margin" uk-navbar>
     <div class="uk-navbar-left">
-        <a class="uk-navbar-item uk-logo" href="#">Analisis Penjualan</a>
+        <a class="uk-navbar-item uk-logo" href="#">HEPPY SEPTIANI </a>
+        <a class="uk-navbar-item uk-logo" href="#"> 1800016155 </a>
     </div>
 </nav>
 <div class="uk-container">
     <div class="uk-child-width-1-2@s" uk-grid uk-height-match="target: > div > .uk-card">    
         <div>
             <div class="uk-card uk-card-default uk-card-small uk-card-body" >
-                <h3 class="uk-card-title">Data Diri</h3>
-                <div id="table_div" style="height:350px;"></div>
+                <h3 class="uk-card-title">Diagram Produksi Kopi</h3>
+                <div id="33" style="height:350px;"></div>
             </div>
         </div>
         <div>
             <div class="uk-card uk-card-default uk-card-small uk-card-body" >
-                <h3 class="uk-card-title">Bagan pengukur</h3>
+                <h3 class="uk-card-title">Diagram Kinerja Perusahaan</h3>
                 <div id="10" style="height:350px;"></div>
             </div>
         </div>
         <div>
             <div class="uk-card uk-card-default uk-card-small uk-card-body" >
-                <h3 class="uk-card-title">Aktivitas Harian</h3>
+                <h3 class="uk-card-title">Diagram Aktivitas Harian</h3>
                 <div id="1" style="height:350px;"></div>
             </div>
         </div>
         <div>
             <div class="uk-card uk-card-default uk-card-small uk-card-body" >
-                <h3 class="uk-card-title">Motivasi dan Tingkat Energi Sepanjang Hari</h3>
+                <h3 class="uk-card-title">Diagram Motivasi dan Tingkat Energi Sepanjang Hari</h3>
                 <div id="4" style="height:350px;"></div>
             </div>
         </div>
